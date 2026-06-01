@@ -1,74 +1,108 @@
-# ZifaMem
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://capsule-render.vercel.app/api?type=waving&height=220&color=0:111827,55:dc5f66,100:f6d365&text=ZifaMem&fontColor=ffffff&fontSize=58&fontAlignY=38&desc=Emotional%20long-term%20memory%20for%20AI%20companions&descAlignY=58&descSize=18">
+    <img src="https://capsule-render.vercel.app/api?type=waving&height=220&color=0:f8fafc,55:dc5f66,100:f6d365&text=ZifaMem&fontColor=1f2328&fontSize=58&fontAlignY=38&desc=Emotional%20long-term%20memory%20for%20AI%20companions&descAlignY=58&descSize=18" alt="ZifaMem" width="100%">
+  </picture>
+</p>
 
-**Long-term emotional memory framework for AI companions.**
+<p align="center">
+  <strong>Long-term emotional memory framework for AI agents, companions, and relationship-centered products.</strong>
+</p>
 
-ZifaMem is an open-source framework for building emotionally aware long-term memory systems for AI agents, companions, and relationship-centered applications.
+<p align="center">
+  <a href="#why-zifamem">Why</a>
+  ·
+  <a href="#core-concepts">Core Concepts</a>
+  ·
+  <a href="#planned-features">Roadmap</a>
+  ·
+  <a href="#project-status">Status</a>
+</p>
 
-Most memory systems are optimized for facts: names, preferences, documents, tasks, and retrieval. ZifaMem is designed for a different layer of memory: emotional continuity.
+<p align="center">
+  <img alt="Status" src="https://img.shields.io/badge/status-coming%20soon-dc5f66">
+  <img alt="Focus" src="https://img.shields.io/badge/focus-emotional%20memory-111827">
+  <img alt="Built for" src="https://img.shields.io/badge/built%20for-AI%20companions-f6d365">
+</p>
 
-It helps AI systems remember not only **what happened**, but also **how it felt**, **why it mattered**, and **how the relationship evolved over time**.
-
-> Code open source coming soon.
+> Source code, documentation, and examples are being prepared. Open source release coming soon.
 
 ## Why ZifaMem
 
-Human relationships are not built from isolated facts. They are shaped by emotional context, recurring patterns, unresolved moments, trust, attachment, boundaries, repair, and shared history.
+Most AI memory systems are optimized for factual recall: names, preferences, documents, tasks, and retrieved snippets.
 
-ZifaMem is designed for applications where memory needs to support:
+ZifaMem is designed for a different layer of memory: **emotional continuity**.
 
-- Long-term emotional continuity
-- Companion and relationship-based AI
-- User personality and preference evolution
-- Emotion-aware recall and reflection
-- Contextual memory across many conversations
-- Safer handling of sensitive and intimate memories
+For companion agents and relationship-centered AI, memory needs to preserve not only what happened, but also how it felt, why it mattered, and how the relationship evolved over time. ZifaMem is built for systems that need to remember trust, comfort, conflict, attachment, boundaries, repair, recurring emotional patterns, and meaningful shared history.
 
-## Core Ideas
+## What Makes It Different
 
-### Emotional Memory, Not Just Factual Memory
+| Traditional memory | ZifaMem |
+| --- | --- |
+| Stores facts and snippets | Models emotionally meaningful memories |
+| Optimizes semantic similarity | Balances relevance, recency, intensity, and relationship context |
+| Treats memory as static text | Supports reinforcement, decay, merging, and forgetting |
+| Recalls what the user said | Recalls what mattered and how it shaped the relationship |
+| Works well for task agents | Designed for companions, roleplay, coaching, and social AI |
 
-ZifaMem treats memory as more than searchable text. Memories can carry emotional signals such as mood, intensity, sentiment, attachment relevance, conflict, comfort, vulnerability, and trust.
+## Core Concepts
+
+### Emotional Memory
+
+Memories can carry emotional signals such as mood, sentiment, intensity, comfort, vulnerability, conflict, trust, and attachment relevance.
 
 ### Relationship Timeline
 
-Instead of storing memories as flat snippets, ZifaMem organizes them around the evolving relationship between a user and an AI system.
+ZifaMem organizes memories around the evolving relationship between the user and the AI system, not just isolated conversation chunks.
 
 ### Memory Lifecycle
 
-Memories can be created, reinforced, weakened, updated, merged, or forgotten. This allows the memory system to evolve naturally instead of accumulating stale context forever.
+Memories can be created, reinforced, weakened, updated, merged, or forgotten. The goal is a memory system that evolves instead of accumulating stale context forever.
 
-### Agent-Friendly Design
+### Contextual Recall
 
-ZifaMem is built to work with modern LLM agents, including retrieval, summarization, reflection, personalization, and emotionally aware response generation.
+Recall is designed to combine semantic meaning with emotional relevance, time, user state, relationship state, and conversational intent.
 
-## Planned Features
+### Agent-Native Design
 
-- Emotional memory schema
-- Long-term memory storage abstraction
-- Memory extraction from conversations
-- Emotion and relationship signal tagging
-- Memory consolidation and reflection
-- Recall ranking by emotional relevance
-- Forgetting and memory decay policies
-- User-controlled memory visibility
-- SDK examples for AI companion use cases
+ZifaMem is planned as an agent-friendly framework for extraction, storage, retrieval, reflection, personalization, and emotionally aware response generation.
 
 ## Use Cases
 
 - AI companions
-- Mental wellness assistants
-- Relationship-centered agents
-- Personalized chatbots
-- Character AI and roleplay systems
+- Emotional support agents
+- Roleplay and character agents
 - Long-running personal AI assistants
-- Emotion-aware customer or community agents
+- Coaching and reflection tools
+- Social AI products
+- Emotion-aware community and customer agents
+
+## Planned Features
+
+- Emotional memory schema
+- Conversation-to-memory extraction
+- Emotion and relationship signal tagging
+- Long-term storage abstraction
+- Relationship timeline modeling
+- Emotion-aware retrieval ranking
+- Memory consolidation and reflection
+- Forgetting, decay, and reinforcement policies
+- User-controlled memory visibility
+- SDK examples for companion agents
+- Evaluation tools for memory continuity
 
 ## Project Status
 
-ZifaMem is currently in early development.
+ZifaMem is in early development.
 
-The public repository is being prepared. Source code, documentation, examples, and contribution guidelines will be released soon.
+This public repository is a preview of the project direction. The implementation, documentation, examples, contribution guide, and license will be released soon.
+
+## Follow Along
+
+Watch this repository to follow the open source release.
+
+For organization updates, visit [Zifa AI](https://github.com/zifacorp).
 
 ## License
 
-Coming soon.
+To be announced with the source code release.
