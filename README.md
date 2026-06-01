@@ -1,8 +1,5 @@
 <p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://capsule-render.vercel.app/api?type=waving&height=220&color=0:111827,55:dc5f66,100:f6d365&text=ZifaMem&fontColor=ffffff&fontSize=58&fontAlignY=38&desc=Emotional%20long-term%20memory%20for%20AI%20companions&descAlignY=58&descSize=18">
-    <img src="https://capsule-render.vercel.app/api?type=waving&height=220&color=0:f8fafc,55:dc5f66,100:f6d365&text=ZifaMem&fontColor=1f2328&fontSize=58&fontAlignY=38&desc=Emotional%20long-term%20memory%20for%20AI%20companions&descAlignY=58&descSize=18" alt="ZifaMem" width="100%">
-  </picture>
+  <img src="https://raw.githubusercontent.com/zifacorp/zifamem/main/assets/zifamem-banner.png" alt="ZifaMem - Emotional long-term memory for AI companions" width="100%">
 </p>
 
 <p align="center">
