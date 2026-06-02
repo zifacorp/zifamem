@@ -3,6 +3,16 @@
 </p>
 
 <p align="center">
+  <a href="README.md">English</a> |
+  <a href="docs/i18n/zh-CN.md">简体中文</a> |
+  <a href="docs/i18n/ja.md">日本語</a> |
+  <a href="docs/i18n/ru.md">Русский</a> |
+  <a href="docs/i18n/ko.md">한국어</a> |
+  <a href="docs/i18n/es.md">Español</a> |
+  <a href="docs/i18n/pt.md">Português</a>
+</p>
+
+<p align="center">
   <strong>Emotional long-term memory that helps AI companions grow, adapt, and remember what matters over time.</strong>
 </p>
 
