@@ -3,13 +3,19 @@
 </p>
 
 <p align="center">
-  <strong>Long-term emotional memory framework for AI agents, companions, and relationship-centered products.</strong>
+  <strong>Emotional long-term memory that helps AI companions grow, adapt, and remember what matters over time.</strong>
 </p>
 
 <p align="center">
+  <a href="#overview">Overview</a>
+  ·
+  <a href="#features">Features</a>
+  ·
   <a href="#why-zifamem">Why</a>
   ·
-  <a href="#core-concepts">Core Concepts</a>
+  <a href="#how-it-evolves">Evolution</a>
+  ·
+  <a href="#use-cases">Use Cases</a>
   ·
   <a href="#planned-features">Roadmap</a>
   ·
@@ -19,10 +25,40 @@
 <p align="center">
   <img alt="Status" src="https://img.shields.io/badge/status-coming%20soon-dc5f66">
   <img alt="Focus" src="https://img.shields.io/badge/focus-emotional%20memory-111827">
-  <img alt="Built for" src="https://img.shields.io/badge/built%20for-AI%20companions-f6d365">
+  <img alt="Built for" src="https://img.shields.io/badge/built%20for-growing%20agents-f6d365">
+  <img alt="Lifecycle" src="https://img.shields.io/badge/lifecycle-reinforce%20%7C%20reflect%20%7C%20forget-8b5cf6">
 </p>
 
 > Source code, documentation, and examples are being prepared. Open source release coming soon.
+
+## Overview
+
+ZifaMem is an emotional long-term memory framework for AI agents, companions, and relationship-centered products.
+
+Most memory systems help an agent retrieve facts. ZifaMem is designed to help an agent **grow**: memories can be reinforced, weakened, merged, reflected on, and forgotten as the relationship changes. The goal is not to accumulate an infinite transcript, but to build a living memory layer that lets an AI companion become more consistent, more personal, and more emotionally aware over time.
+
+## Features
+
+- Emotional memory modeling for mood, sentiment, intensity, trust, comfort, conflict, attachment, and boundaries
+- Relationship timeline design for long-running user-agent continuity
+- Memory lifecycle policies for reinforcement, decay, merging, reflection, and forgetting
+- Emotion-aware recall that balances semantic relevance with relationship context
+- Agent-native interfaces for extraction, storage, retrieval, reflection, and response generation
+- User-visible memory controls planned for review, correction, deletion, and consent-aware personalization
+
+## Who Is ZifaMem For?
+
+ZifaMem is for teams building AI products where the agent should feel like it is learning the relationship, not just searching a database.
+
+ZifaMem is a good fit if you:
+
+- Build AI companions, characters, coaches, or emotional support agents
+- Need memories that change as users build trust, repair conflict, or repeat patterns
+- Want agents that can become more personal without keeping every conversation forever
+- Care about emotional continuity, consent, user control, and long-term safety
+- Need a memory layer that can support reflection and agent growth over months or years
+
+ZifaMem may not be the best fit if you only need short-term chat history, document retrieval, or task-oriented factual recall.
 
 ## Why ZifaMem
 
@@ -34,13 +70,61 @@ For companion agents and relationship-centered AI, memory needs to preserve not 
 
 ## What Makes It Different
 
-| Traditional memory | ZifaMem |
+| Static memory | ZifaMem |
 | --- | --- |
 | Stores facts and snippets | Models emotionally meaningful memories |
 | Optimizes semantic similarity | Balances relevance, recency, intensity, and relationship context |
-| Treats memory as static text | Supports reinforcement, decay, merging, and forgetting |
+| Treats memory as static text | Lets memories strengthen, fade, merge, and be forgotten |
 | Recalls what the user said | Recalls what mattered and how it shaped the relationship |
+| Personalizes from isolated preferences | Personalizes from an evolving relationship timeline |
 | Works well for task agents | Designed for companions, roleplay, coaching, and social AI |
+
+## When Should You Use ZifaMem?
+
+Use ZifaMem when the bottleneck is no longer basic retrieval, but **continuity**:
+
+- Long-running agents that need to remember emotional history across sessions
+- Companion products where trust, vulnerability, comfort, and conflict matter
+- Roleplay or character agents that should develop stable shared history
+- Coaching and reflection tools that should notice recurring emotional patterns
+- Social AI systems that need memory policies for consent, decay, and correction
+- Agents that should improve their responses as their relationship with the user matures
+
+## How It Evolves
+
+ZifaMem treats memory as a lifecycle, not a pile of saved messages.
+
+```mermaid
+flowchart LR
+    CHAT["Conversation"] --> EXTRACT["Extract Signals"]
+    EXTRACT --> SCORE["Score Emotional Meaning"]
+    SCORE --> STORE["Store Memory"]
+    STORE --> RECALL["Contextual Recall"]
+    RECALL --> RESPOND["Agent Response"]
+    RESPOND --> FEEDBACK["User Reaction"]
+    FEEDBACK --> REFLECT["Reflect & Consolidate"]
+    REFLECT --> UPDATE["Reinforce, Merge, Decay, or Forget"]
+    UPDATE --> STORE
+
+    STORE -.- M1["Shared history"]
+    RECALL -.- M2["Relationship context"]
+    REFLECT -.- M3["Agent growth"]
+    UPDATE -.- M4["Living memory"]
+
+    style CHAT fill:#f6d365,stroke:#d97706,stroke-width:2px,color:#111827
+    style EXTRACT fill:#f9a8d4,stroke:#be185d,stroke-width:2px,color:#111827
+    style SCORE fill:#f472b6,stroke:#be185d,stroke-width:2px,color:#111827
+    style STORE fill:#8b5cf6,stroke:#6d28d9,stroke-width:2px,color:#ffffff
+    style RECALL fill:#6366f1,stroke:#4338ca,stroke-width:2px,color:#ffffff
+    style RESPOND fill:#14b8a6,stroke:#0f766e,stroke-width:2px,color:#ffffff
+    style FEEDBACK fill:#f97316,stroke:#c2410c,stroke-width:2px,color:#ffffff
+    style REFLECT fill:#dc5f66,stroke:#b91c1c,stroke-width:2px,color:#ffffff
+    style UPDATE fill:#111827,stroke:#374151,stroke-width:2px,color:#ffffff
+    style M1 fill:#ffffff,stroke:#8b5cf6,stroke-width:1px,color:#6d28d9
+    style M2 fill:#ffffff,stroke:#6366f1,stroke-width:1px,color:#4338ca
+    style M3 fill:#ffffff,stroke:#dc5f66,stroke-width:1px,color:#b91c1c
+    style M4 fill:#ffffff,stroke:#111827,stroke-width:1px,color:#111827
+```
 
 ## Core Concepts
 
@@ -55,6 +139,10 @@ ZifaMem organizes memories around the evolving relationship between the user and
 ### Memory Lifecycle
 
 Memories can be created, reinforced, weakened, updated, merged, or forgotten. The goal is a memory system that evolves instead of accumulating stale context forever.
+
+### Agent Growth
+
+The agent can use memory reflection to become more aligned with the user's emotional patterns, relationship history, and preferred forms of support.
 
 ### Contextual Recall
 
@@ -83,10 +171,30 @@ ZifaMem is planned as an agent-friendly framework for extraction, storage, retri
 - Relationship timeline modeling
 - Emotion-aware retrieval ranking
 - Memory consolidation and reflection
+- Agent growth loop for reinforcing useful memories and correcting stale ones
 - Forgetting, decay, and reinforcement policies
 - User-controlled memory visibility
+- Consent-aware memory editing and deletion
 - SDK examples for companion agents
 - Evaluation tools for memory continuity
+
+## Frequently Asked Questions
+
+### Is ZifaMem a vector database?
+
+No. ZifaMem is planned as a memory framework that can work with storage and retrieval systems, but its focus is emotional meaning, lifecycle policy, relationship continuity, and agent growth.
+
+### Does ZifaMem store every conversation?
+
+No. The goal is to extract meaningful memories and let them change over time. Some memories should be reinforced, some should be corrected, and some should fade or be forgotten.
+
+### How is this different from ordinary personalization?
+
+Ordinary personalization often stores preferences. ZifaMem is designed for relationship-centered context: trust, comfort, conflict, vulnerability, attachment, boundaries, repair, and shared history.
+
+### Can users control memory?
+
+User-visible memory review, correction, deletion, and consent-aware controls are part of the planned roadmap.
 
 ## Project Status
 
