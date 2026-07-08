@@ -41,7 +41,7 @@
   <img alt="Lifecycle" src="https://img.shields.io/badge/lifecycle-reinforce%20%7C%20reflect%20%7C%20forget-8b5cf6">
 </p>
 
-> ZifaMem is now available as an alpha Python SDK. The current release focuses on a dependency-free emotional memory lifecycle, local JSON storage, prompt context assembly, and tests. Production database and vector integrations are planned.
+> ZifaMem is now available as an alpha Python SDK. The current release focuses on a dependency-free default memory lifecycle, optional LLMProvider extraction, local JSON storage, prompt context assembly, and tests. Production database and vector integrations are planned.
 
 ## Overview
 
@@ -99,6 +99,25 @@ print(context.to_prompt())
 
 The default engine follows a session-boundary flow: recent turns are buffered as L1, completed sessions become L2 summaries, important user facts are promoted to L3 emotional long-term memories, and selected memories update the L4 user profile.
 
+### Optional LLM extraction
+
+ZifaMem does not require an LLM by default. If you want model-backed session summaries and memory extraction, inject a provider:
+
+```python
+import os
+
+from zifamem import LLMMemoryExtractor, OpenAICompatibleProvider, ZifaMemory
+
+provider = OpenAICompatibleProvider(
+    api_key=os.environ["OPENAI_API_KEY"],
+    model="gpt-4.1-mini",
+)
+
+memory = ZifaMemory(extractor=LLMMemoryExtractor(provider))
+```
+
+`OpenAICompatibleProvider` uses the Chat Completions JSON-object pattern and can also point at compatible local or hosted gateways via `base_url`. The LLM extractor validates categories, scores, and user-fact evidence before writing long-term memories, and falls back to the dependency-free heuristic extractor when the provider fails.
+
 ## Features
 
 - Emotional memory modeling for mood, sentiment, intensity, trust, comfort, conflict, attachment, and boundaries
@@ -106,6 +125,7 @@ The default engine follows a session-boundary flow: recent turns are buffered as
 - Memory lifecycle policies for reinforcement, decay, merging, reflection, and forgetting
 - Emotion-aware recall that balances semantic relevance with relationship context
 - Agent-native interfaces for extraction, storage, retrieval, session consolidation, and prompt context assembly
+- Optional LLMProvider interface and OpenAI-compatible extractor adapter
 - Local in-memory and JSON stores for development, tests, and small deployments
 - User memory deletion and weakening/reinforcement APIs; user-visible review UI is planned
 
@@ -228,7 +248,7 @@ ZifaMem is planned as an agent-friendly framework for extraction, storage, retri
 ## Planned Features
 
 - Production database and vector-store adapters
-- LLM-backed extraction and reflection adapters
+- More LLM-backed reflection and provider examples
 - Relationship timeline visualization
 - Richer emotion-aware retrieval ranking
 - Agent growth loop for reinforcing useful memories and correcting stale ones
@@ -259,7 +279,7 @@ User-visible memory review, correction, deletion, and consent-aware controls are
 
 ZifaMem is in alpha.
 
-The repository now includes the first Python SDK implementation, examples, and unit tests. The current implementation is intentionally local-first and dependency-free. It is suitable for evaluation, prototyping, and adapter development; production storage, vector search, hosted services, and the final license are still being prepared.
+The repository now includes the first Python SDK implementation, optional LLM extraction adapters, examples, and unit tests. The current implementation remains local-first and dependency-free by default. It is suitable for evaluation, prototyping, and adapter development; production storage, vector search, hosted services, and the final license are still being prepared.
 
 ## Follow Along
 
