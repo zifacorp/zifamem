@@ -59,17 +59,17 @@ The current alpha implements the foundation for that direction. The full growth 
 
 Implemented in the alpha SDK:
 
-- [x] L1 session buffer through `record_turn`
-- [x] L2 session summaries through `end_session`
-- [x] L3 long-term memory records with category, importance, strength, evidence, and emotional signals
-- [x] L4 user profile updates from selected identity, preference, boundary, conflict, vulnerability, and meaningful-moment memories
-- [x] Dependency-free heuristic extraction from memory-eligible user turns
-- [x] Optional `LLMProvider` extraction with JSON validation, user-evidence filtering, and heuristic fallback
-- [x] Prompt-ready memory context assembly through `get_context`
-- [x] Local `InMemoryStore` and `JsonMemoryStore`
-- [x] Manual `remember`, `reinforce`, `weaken`, and `forget` APIs
-- [x] Recall ranking that combines lexical semantic overlap, memory strength, importance, recency decay, and emotional intensity
-- [x] Portable Agent Skills for integration and memory-safety review
+- ✅ L1 session buffer through `record_turn`
+- ✅ L2 session summaries through `end_session`
+- ✅ L3 long-term memory records with category, importance, strength, evidence, and emotional signals
+- ✅ L4 user profile updates from selected identity, preference, boundary, conflict, vulnerability, and meaningful-moment memories
+- ✅ Dependency-free heuristic extraction from memory-eligible user turns
+- ✅ Optional `LLMProvider` extraction with JSON validation, user-evidence filtering, and heuristic fallback
+- ✅ Prompt-ready memory context assembly through `get_context`
+- ✅ Local `InMemoryStore` and `JsonMemoryStore`
+- ✅ Manual `remember`, `reinforce`, `weaken`, and `forget` APIs
+- ✅ Recall ranking that combines lexical semantic overlap, memory strength, importance, recency decay, and emotional intensity
+- ✅ Portable Agent Skills for integration and memory-safety review
 
 Still on the TODO list:
 
