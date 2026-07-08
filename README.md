@@ -19,6 +19,8 @@
 <p align="center">
   <a href="#overview">Overview</a>
   ·
+  <a href="#quick-install">Quick Install</a>
+  ·
   <a href="#features">Features</a>
   ·
   <a href="#why-zifamem">Why</a>
@@ -33,13 +35,13 @@
 </p>
 
 <p align="center">
-  <img alt="Status" src="https://img.shields.io/badge/status-coming%20soon-dc5f66">
+  <img alt="Status" src="https://img.shields.io/badge/status-alpha%20sdk-dc5f66">
   <img alt="Focus" src="https://img.shields.io/badge/focus-emotional%20memory-111827">
   <img alt="Built for" src="https://img.shields.io/badge/built%20for-growing%20agents-f6d365">
   <img alt="Lifecycle" src="https://img.shields.io/badge/lifecycle-reinforce%20%7C%20reflect%20%7C%20forget-8b5cf6">
 </p>
 
-> Source code, documentation, and examples are being prepared. Open source release coming soon.
+> ZifaMem is now available as an alpha Python SDK. The current release focuses on a dependency-free emotional memory lifecycle, local JSON storage, prompt context assembly, and tests. Production database and vector integrations are planned.
 
 ## Overview
 
@@ -47,14 +49,65 @@ ZifaMem is an emotional long-term memory framework for AI agents, companions, an
 
 Most memory systems help an agent retrieve facts. ZifaMem is designed to help an agent **grow**: memories can be reinforced, weakened, merged, reflected on, and forgotten as the relationship changes. The goal is not to accumulate an infinite transcript, but to build a living memory layer that lets an AI companion become more consistent, more personal, and more emotionally aware over time.
 
+## Quick Install
+
+```bash
+python -m pip install -e .
+python -m zifamem demo
+```
+
+The demo writes a small local JSON store and prints the prompt-ready memory context. For development:
+
+```bash
+python -m pip install -e ".[dev]"
+python -m pytest
+```
+
+## Quick Start
+
+```python
+from zifamem import ZifaMemory
+
+memory = ZifaMemory()
+
+memory.record_turn(
+    user_id="u_123",
+    agent_id="companion",
+    session_id="s_001",
+    speaker="user",
+    text="My name is Mira and I love quiet morning routines.",
+)
+memory.record_turn(
+    user_id="u_123",
+    agent_id="companion",
+    session_id="s_001",
+    speaker="agent",
+    text="Quiet mornings sound grounding.",
+)
+
+memory.end_session(user_id="u_123", agent_id="companion", session_id="s_001")
+
+context = memory.get_context(
+    user_id="u_123",
+    agent_id="companion",
+    session_id="s_001",
+    query="What should I remember about Mira?",
+)
+
+print(context.to_prompt())
+```
+
+The default engine follows a session-boundary flow: recent turns are buffered as L1, completed sessions become L2 summaries, important user facts are promoted to L3 emotional long-term memories, and selected memories update the L4 user profile.
+
 ## Features
 
 - Emotional memory modeling for mood, sentiment, intensity, trust, comfort, conflict, attachment, and boundaries
 - Relationship timeline design for long-running user-agent continuity
 - Memory lifecycle policies for reinforcement, decay, merging, reflection, and forgetting
 - Emotion-aware recall that balances semantic relevance with relationship context
-- Agent-native interfaces for extraction, storage, retrieval, reflection, and response generation
-- User-visible memory controls planned for review, correction, deletion, and consent-aware personalization
+- Agent-native interfaces for extraction, storage, retrieval, session consolidation, and prompt context assembly
+- Local in-memory and JSON stores for development, tests, and small deployments
+- User memory deletion and weakening/reinforcement APIs; user-visible review UI is planned
 
 ## Who Is ZifaMem For?
 
@@ -174,18 +227,14 @@ ZifaMem is planned as an agent-friendly framework for extraction, storage, retri
 
 ## Planned Features
 
-- Emotional memory schema
-- Conversation-to-memory extraction
-- Emotion and relationship signal tagging
-- Long-term storage abstraction
-- Relationship timeline modeling
-- Emotion-aware retrieval ranking
-- Memory consolidation and reflection
+- Production database and vector-store adapters
+- LLM-backed extraction and reflection adapters
+- Relationship timeline visualization
+- Richer emotion-aware retrieval ranking
 - Agent growth loop for reinforcing useful memories and correcting stale ones
-- Forgetting, decay, and reinforcement policies
 - User-controlled memory visibility
 - Consent-aware memory editing and deletion
-- SDK examples for companion agents
+- More SDK examples for companion agents
 - Evaluation tools for memory continuity
 
 ## Frequently Asked Questions
@@ -208,9 +257,9 @@ User-visible memory review, correction, deletion, and consent-aware controls are
 
 ## Project Status
 
-ZifaMem is in early development.
+ZifaMem is in alpha.
 
-This public repository is a preview of the project direction. The implementation, documentation, examples, contribution guide, and license will be released soon.
+The repository now includes the first Python SDK implementation, examples, and unit tests. The current implementation is intentionally local-first and dependency-free. It is suitable for evaluation, prototyping, and adapter development; production storage, vector search, hosted services, and the final license are still being prepared.
 
 ## Follow Along
 
@@ -220,4 +269,4 @@ For organization updates, visit [Zifa AI](https://github.com/zifacorp).
 
 ## License
 
-To be announced with the source code release.
+To be announced.
