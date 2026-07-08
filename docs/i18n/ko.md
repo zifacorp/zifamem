@@ -19,7 +19,13 @@
 <p align="center">
   <a href="#overview">개요</a>
   ·
+  <a href="#quick-install">빠른 설치</a>
+  ·
+  <a href="#implementation-status">구현 상태</a>
+  ·
   <a href="#features">기능</a>
+  ·
+  <a href="#agent-skills">Agent Skills</a>
   ·
   <a href="#why-zifamem">왜 ZifaMem인가</a>
   ·
@@ -33,13 +39,13 @@
 </p>
 
 <p align="center">
-  <img alt="Status" src="https://img.shields.io/badge/status-coming%20soon-dc5f66">
+  <img alt="Status" src="https://img.shields.io/badge/status-alpha%20sdk-dc5f66">
   <img alt="Focus" src="https://img.shields.io/badge/focus-emotional%20memory-111827">
   <img alt="Built for" src="https://img.shields.io/badge/built%20for-growing%20agents-f6d365">
   <img alt="Lifecycle" src="https://img.shields.io/badge/lifecycle-reinforce%20%7C%20reflect%20%7C%20forget-8b5cf6">
 </p>
 
-> 소스 코드, 문서, 예제가 준비 중입니다. 오픈소스 릴리스가 곧 공개될 예정입니다.
+> ZifaMem은 이제 alpha Python SDK로 사용할 수 있습니다. 현재 릴리스는 기본적으로 외부 의존성이 없는 기억 생애주기, 선택적 LLMProvider 추출, 로컬 JSON 저장소, prompt 컨텍스트 조립, 테스트에 초점을 둡니다. 프로덕션 데이터베이스와 벡터 통합은 계획 중입니다.
 
 <a id="overview"></a>
 ## 개요
@@ -48,15 +54,106 @@ ZifaMem은 AI 에이전트, AI 컴패니언, 관계 중심 제품을 위한 감�
 
 대부분의 기억 시스템은 에이전트가 사실을 검색하도록 돕습니다. ZifaMem은 에이전트가 **성장**하도록 설계되었습니다. 관계가 변함에 따라 기억은 강화되고, 약해지고, 병합되고, 성찰되고, 잊힐 수 있습니다. 목표는 대화 기록을 끝없이 쌓는 것이 아니라 AI 컴패니언이 시간이 지날수록 더 일관되고, 더 개인화되며, 감정 맥락을 더 잘 이해하도록 돕는 살아 있는 기억 계층을 만드는 것입니다.
 
+현재 alpha는 이 방향의 기반을 구현합니다. 완전한 growth loop는 아직 구축 중입니다.
+
+<a id="implementation-status"></a>
+## 구현 상태
+
+alpha SDK에서 구현됨:
+
+- ✅ `record_turn`을 통한 L1 세션 버퍼
+- ✅ `end_session`을 통한 L2 세션 요약
+- ✅ 카테고리, 중요도, 강도, 증거, 감정 신호를 포함한 L3 장기 기억 레코드
+- ✅ 신원, 선호, 경계, 갈등, 취약성, 의미 있는 순간 기억에서 L4 사용자 프로필 업데이트
+- ✅ memory-eligible 사용자 턴에서 동작하는 의존성 없는 heuristic 추출
+- ✅ JSON 검증, 사용자 증거 필터링, heuristic fallback을 포함한 선택적 `LLMProvider` 추출
+- ✅ `get_context`를 통한 prompt-ready 기억 컨텍스트 조립
+- ✅ 로컬 `InMemoryStore`와 `JsonMemoryStore`
+- ✅ 수동 `remember`, `reinforce`, `weaken`, `forget` API
+- ✅ 어휘적 의미 중첩, 기억 강도, 중요도, 시간 감쇠, 감정 강도를 결합한 recall ranking
+- ✅ 통합과 기억 안전 리뷰를 위한 portable Agent Skills
+
+TODO:
+
+- [ ] 관련 기억의 자동 merge / update. 현재는 보수적인 중복 처리만 제공
+- [ ] 기억을 주기적으로 수정하거나 통합하는 reflection loop
+- [ ] 관계 타임라인 시각화와 더 풍부한 관계 상태 모델링
+- [ ] 프로덕션 데이터베이스, vector-store, hosted-service adapters
+- [ ] 사용자가 볼 수 있는 기억 검토, 수정, 동의, 삭제 UI
+- [ ] 사용자 상태, 관계 상태, 대화 의도를 명시적으로 반영하는 더 강한 retrieval
+- [ ] 사용자 피드백에서 학습하고 오래된 기억을 수정하는 agent growth loop
+- [ ] 장기 기억 연속성 평가 도구
+
+<a id="quick-install"></a>
+## 빠른 설치
+
+```bash
+python -m pip install -e .
+python -m zifamem demo
+```
+
+개발용:
+
+```bash
+python -m pip install -e ".[dev]"
+python -m pytest
+```
+
+기본 엔진은 세션 경계 흐름을 따릅니다. 최근 턴은 L1에 버퍼링되고, 완료된 세션은 L2 요약이 되며, 중요한 사용자 사실은 L3 감정 장기 기억으로 승격되고, 선택된 기억은 L4 사용자 프로필을 업데이트합니다.
+
+### 선택적 LLM 추출
+
+ZifaMem은 기본적으로 LLM이 필요하지 않습니다. 모델 기반 세션 요약과 기억 추출이 필요하면 provider를 주입하세요.
+
+```python
+import os
+
+from zifamem import LLMMemoryExtractor, OpenAICompatibleProvider, ZifaMemory
+
+provider = OpenAICompatibleProvider(
+    api_key=os.environ["OPENAI_API_KEY"],
+    model="gpt-4.1-mini",
+)
+
+memory = ZifaMemory(extractor=LLMMemoryExtractor(provider))
+```
+
+`OpenAICompatibleProvider`는 Chat Completions JSON object 패턴을 사용하며 `base_url`로 호환 가능한 로컬 또는 hosted gateway를 가리킬 수 있습니다. LLM extractor는 장기 기억을 쓰기 전에 카테고리, 점수, 사용자 사실 증거를 검증하고 provider 실패 시 의존성 없는 heuristic extractor로 fallback합니다.
+
+<a id="agent-skills"></a>
+## Agent Skills
+
+이 저장소는 coding agent와 agent harness를 위한 portable Agent Skills도 제공합니다.
+
+- `skills/zifamem-integrate`: ZifaMem을 AI 컴패니언, 챗봇, 롤플레이 에이전트 또는 coding-agent harness에 추가합니다.
+- `skills/zifamem-memory-audit`: 추출 안전성, 사용자 사실 증거, LLM 출력 검증, 공개 릴리스 누출 위험을 리뷰합니다.
+
+이 skills는 portable `SKILL.md` 폴더 패턴을 사용합니다. Agent Skills를 지원하는 도구에 복사할 수 있습니다.
+
+```bash
+# Codex personal skills
+mkdir -p ~/.codex/skills
+cp -R skills/zifamem-* ~/.codex/skills/
+
+# Claude Code personal skills
+mkdir -p ~/.claude/skills
+cp -R skills/zifamem-* ~/.claude/skills/
+```
+
+OpenClaw 또는 다른 `SKILL.md` 호환 runtime에서는 같은 폴더를 해당 도구가 설정한 skills 디렉터리에 복사하세요. 이 skills는 공개해도 안전한 절차 가이드입니다. 지속 기억에는 애플리케이션 runtime에서 ZifaMem SDK를 통합해야 합니다.
+
 <a id="features"></a>
 ## 기능
 
 - 기분, 감정, 강도, 신뢰, 편안함, 갈등, 애착, 경계에 대한 감정 기억 모델링
-- 장기적인 사용자-에이전트 연속성을 위한 관계 타임라인
-- 강화, 감쇠, 병합, 성찰, 망각을 위한 기억 생애주기 정책
-- 의미적 관련성과 관계 맥락을 함께 고려하는 감정 인식형 recall
-- 추출, 저장, 검색, 성찰, 응답 생성을 위한 에이전트 네이티브 인터페이스
-- 검토, 수정, 삭제, 동의 기반 개인화를 위한 사용자 가시적 기억 제어 기능 계획
+- 장기적인 사용자-에이전트 연속성을 위한 관계 기억 기반 구조
+- 강화, 감쇠 인식 recall, 망각을 위한 기억 생애주기 API. 자동 merge와 reflection loop는 계획 중
+- 어휘적 의미 관련성, 시간, 중요도, 강도, 감정 강도를 결합한 감정 인식형 recall prototype
+- 추출, 저장, 검색, 세션 통합, prompt 컨텍스트 조립을 위한 에이전트 네이티브 인터페이스
+- 선택적 LLMProvider interface와 OpenAI-compatible extractor adapter
+- 통합과 기억 안전 리뷰를 위한 portable Agent Skills
+- 개발, 테스트, 소규모 배포를 위한 in-memory store와 JSON store
+- 기억 삭제, 약화, 강화 API. 사용자 가시적 memory review UI는 계획 중
 
 ## ZifaMem은 누구를 위한 것인가요?
 
@@ -183,15 +280,15 @@ ZifaMem은 추출, 저장, 검색, 성찰, 개인화, 감정 인식형 응답 �
 - 감정 기억 스키마
 - 대화에서 기억 추출
 - 감정 및 관계 신호 태깅
-- 장기 저장 추상화
-- 관계 타임라인 모델링
-- 감정 인식형 검색 순위
-- 기억 통합과 성찰
+- 프로덕션 데이터베이스와 vector-store adapters
+- 자동 기억 merge, update, reflection loop
+- 더 많은 LLM-backed reflection과 provider examples
+- 관계 타임라인 시각화
+- 더 풍부한 감정 인식형 retrieval ranking
 - 유용한 기억을 강화하고 오래된 기억을 수정하는 에이전트 성장 루프
-- 망각, 감쇠, 강화 정책
 - 사용자 제어 가능한 기억 가시성
 - 동의 기반 기억 편집 및 삭제
-- 컴패니언 에이전트용 SDK 예제
+- 컴패니언 에이전트용 추가 SDK 예제
 - 기억 연속성 평가 도구
 
 ## 자주 묻는 질문
@@ -215,9 +312,9 @@ ZifaMem은 추출, 저장, 검색, 성찰, 개인화, 감정 인식형 응답 �
 <a id="project-status"></a>
 ## 프로젝트 상태
 
-ZifaMem은 초기 개발 단계입니다.
+ZifaMem은 alpha 단계입니다.
 
-이 공개 저장소는 프로젝트 방향을 보여주는 프리뷰입니다. 구현, 문서, 예제, 기여 가이드, 라이선스는 곧 공개될 예정입니다.
+이 공개 저장소에는 첫 Python SDK 구현, 선택적 LLM extraction adapters, Agent Skills, 예제, 단위 테스트가 포함되어 있습니다. 현재 구현은 기본적으로 local-first이며 외부 의존성이 없습니다. 평가, 프로토타이핑, adapter development에 적합합니다. Production storage, vector search, hosted services, 최종 라이선스는 준비 중입니다.
 
 ## 팔로우
 

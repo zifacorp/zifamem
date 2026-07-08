@@ -19,7 +19,13 @@
 <p align="center">
   <a href="#overview">Visão geral</a>
   ·
+  <a href="#quick-install">Instalação rápida</a>
+  ·
+  <a href="#implementation-status">Status de implementação</a>
+  ·
   <a href="#features">Recursos</a>
+  ·
+  <a href="#agent-skills">Agent Skills</a>
   ·
   <a href="#why-zifamem">Por que</a>
   ·
@@ -33,13 +39,13 @@
 </p>
 
 <p align="center">
-  <img alt="Status" src="https://img.shields.io/badge/status-coming%20soon-dc5f66">
+  <img alt="Status" src="https://img.shields.io/badge/status-alpha%20sdk-dc5f66">
   <img alt="Focus" src="https://img.shields.io/badge/focus-emotional%20memory-111827">
   <img alt="Built for" src="https://img.shields.io/badge/built%20for-growing%20agents-f6d365">
   <img alt="Lifecycle" src="https://img.shields.io/badge/lifecycle-reinforce%20%7C%20reflect%20%7C%20forget-8b5cf6">
 </p>
 
-> O código-fonte, a documentação e os exemplos estão sendo preparados. O lançamento open source chegará em breve.
+> ZifaMem já está disponível como alpha Python SDK. A versão atual foca em um ciclo de vida de memória sem dependências obrigatórias, extração opcional com LLMProvider, armazenamento JSON local, montagem de contexto para prompts e testes. Integrações com banco de dados de produção e vetores estão planejadas.
 
 <a id="overview"></a>
 ## Visão geral
@@ -48,15 +54,106 @@ ZifaMem é um framework de memória emocional de longo prazo para agentes de IA,
 
 A maioria dos sistemas de memória ajuda um agente a recuperar fatos. ZifaMem foi criado para ajudar um agente a **crescer**: memórias podem ser reforçadas, enfraquecidas, mescladas, refletidas e esquecidas conforme o relacionamento muda. O objetivo não é acumular uma transcrição infinita, mas construir uma camada viva de memória que torne um companheiro de IA mais consistente, mais pessoal e mais consciente do contexto emocional ao longo do tempo.
 
+A alpha atual implementa a base dessa direção. O growth loop completo ainda está em construção.
+
+<a id="implementation-status"></a>
+## Status de implementação
+
+Implementado no alpha SDK:
+
+- ✅ Buffer de sessão L1 por `record_turn`
+- ✅ Resumos de sessão L2 por `end_session`
+- ✅ Registros de memória L3 de longo prazo com categoria, importância, força, evidência e sinais emocionais
+- ✅ Atualizações do perfil L4 a partir de memórias selecionadas de identidade, preferência, limites, conflito, vulnerabilidade e momentos significativos
+- ✅ Extração heuristic sem dependências a partir de turnos de usuário memory-eligible
+- ✅ Extração opcional com `LLMProvider`, validação JSON, filtro de evidência do usuário e fallback heuristic
+- ✅ Montagem de contexto memory-ready para prompts por `get_context`
+- ✅ `InMemoryStore` e `JsonMemoryStore` locais
+- ✅ APIs manuais `remember`, `reinforce`, `weaken` e `forget`
+- ✅ Ranking de recall que combina sobreposição semântica lexical, força da memória, importância, decaimento temporal e intensidade emocional
+- ✅ Agent Skills portáveis para integração e revisão de segurança de memória
+
+TODO:
+
+- [ ] Mesclagem e atualização automáticas de memórias relacionadas; hoje há apenas tratamento conservador de duplicatas
+- [ ] Reflection loops que revisam ou consolidam memórias periodicamente
+- [ ] Visualização de timeline de relacionamento e modelagem mais rica de estado relacional
+- [ ] Adaptadores de banco de dados de produção, vector-store e hosted services
+- [ ] UI visível para revisão, correção, consentimento e exclusão de memória
+- [ ] Recuperação mais forte que incorpore explicitamente estado do usuário, estado do relacionamento e intenção conversacional
+- [ ] Agent growth loop que aprende com feedback do usuário e corrige memórias obsoletas
+- [ ] Ferramentas de avaliação de continuidade de memória de longo prazo
+
+<a id="quick-install"></a>
+## Instalação rápida
+
+```bash
+python -m pip install -e .
+python -m zifamem demo
+```
+
+Para desenvolvimento:
+
+```bash
+python -m pip install -e ".[dev]"
+python -m pytest
+```
+
+O motor padrão segue um fluxo de fronteira de sessão: turnos recentes ficam no buffer L1, sessões concluídas viram resumos L2, fatos importantes do usuário são promovidos para memórias emocionais L3 de longo prazo, e algumas memórias atualizam o perfil L4 do usuário.
+
+### Extração LLM opcional
+
+ZifaMem não requer LLM por padrão. Para resumos de sessão e extração de memória apoiados por modelo, injete um provider:
+
+```python
+import os
+
+from zifamem import LLMMemoryExtractor, OpenAICompatibleProvider, ZifaMemory
+
+provider = OpenAICompatibleProvider(
+    api_key=os.environ["OPENAI_API_KEY"],
+    model="gpt-4.1-mini",
+)
+
+memory = ZifaMemory(extractor=LLMMemoryExtractor(provider))
+```
+
+`OpenAICompatibleProvider` usa o padrão Chat Completions JSON object e também pode apontar para gateways locais ou hosted compatíveis via `base_url`. O extrator LLM valida categorias, pontuações e evidência de fatos do usuário antes de escrever memórias de longo prazo, e faz fallback para o extrator heuristic sem dependências quando o provider falha.
+
+<a id="agent-skills"></a>
+## Agent Skills
+
+Este repositório também publica Agent Skills portáveis para coding agents e agent harnesses:
+
+- `skills/zifamem-integrate`: adicionar ZifaMem a um companheiro de IA, chatbot, agente de roleplay ou coding-agent harness.
+- `skills/zifamem-memory-audit`: revisar um fluxo de memória quanto a segurança de extração, evidência de fatos do usuário, validação de saída LLM e risco de vazamento em publicação.
+
+Os skills usam o padrão portável de pasta `SKILL.md`. Eles podem ser copiados para ferramentas que suportam Agent Skills:
+
+```bash
+# Codex personal skills
+mkdir -p ~/.codex/skills
+cp -R skills/zifamem-* ~/.codex/skills/
+
+# Claude Code personal skills
+mkdir -p ~/.claude/skills
+cp -R skills/zifamem-* ~/.claude/skills/
+```
+
+Para OpenClaw ou outros runtimes compatíveis com `SKILL.md`, copie as mesmas pastas para o diretório de skills configurado pela ferramenta. Esses skills são orientação procedural segura para publicação; memória persistente ainda requer integrar o SDK ZifaMem no runtime da aplicação.
+
 <a id="features"></a>
 ## Recursos
 
 - Modelagem de memória emocional para humor, sentimento, intensidade, confiança, conforto, conflito, apego e limites
-- Linha do tempo de relacionamento para continuidade de longo prazo entre usuário e agente
-- Políticas de ciclo de vida da memória para reforço, decaimento, mesclagem, reflexão e esquecimento
-- Recall com consciência emocional que equilibra relevância semântica e contexto de relacionamento
-- Interfaces nativas para agentes: extração, armazenamento, recuperação, reflexão e geração de respostas
-- Controles visíveis para o usuário planejados para revisão, correção, exclusão e personalização baseada em consentimento
+- Primitivas de memória relacional para continuidade de longo prazo entre usuário e agente
+- APIs de ciclo de vida para reforço, recall com decaimento e esquecimento; loops de mesclagem e reflexão estão planejados
+- Protótipo de recall emocional que combina relevância semântica lexical, recência, importância, força e intensidade emocional
+- Interfaces nativas para agentes: extração, armazenamento, recuperação, consolidação de sessão e montagem de prompt context
+- Interface LLMProvider opcional e adaptador extractor OpenAI-compatible
+- Agent Skills portáveis para integração e revisão de segurança de memória
+- Stores locais em memória e JSON para desenvolvimento, testes e pequenos deployments
+- APIs de exclusão, enfraquecimento e reforço de memória; a UI visível de revisão de memória está planejada
 
 ## Para quem é o ZifaMem?
 
@@ -183,15 +280,15 @@ ZifaMem é planejado como um framework amigável para agentes, com extração, a
 - Schema de memória emocional
 - Extração de memória a partir de conversas
 - Marcação de sinais emocionais e de relacionamento
-- Abstração de armazenamento de longo prazo
-- Modelagem de linha do tempo de relacionamento
-- Ranking de recuperação com consciência emocional
-- Consolidação e reflexão de memória
+- Adaptadores de banco de dados de produção e vector-store
+- Mesclagem, atualização e reflection loops automáticos de memória
+- Mais exemplos de reflexão LLM-backed e providers
+- Visualização de timeline de relacionamento
+- Ranking de recuperação emocional mais rico
 - Loop de crescimento do agente para reforçar memórias úteis e corrigir memórias obsoletas
-- Políticas de esquecimento, decaimento e reforço
 - Visibilidade de memória controlada pelo usuário
 - Edição e exclusão de memória baseadas em consentimento
-- Exemplos de SDK para agentes companheiros
+- Mais exemplos de SDK para agentes companheiros
 - Ferramentas de avaliação de continuidade de memória
 
 ## Perguntas frequentes
@@ -215,9 +312,9 @@ Revisão, correção, exclusão e controles baseados em consentimento visíveis 
 <a id="project-status"></a>
 ## Status do projeto
 
-ZifaMem está em desenvolvimento inicial.
+ZifaMem está em alpha.
 
-Este repositório público é uma prévia da direção do projeto. A implementação, documentação, exemplos, guia de contribuição e licença serão lançados em breve.
+Este repositório público já inclui a primeira implementação do Python SDK, adaptadores opcionais de extração LLM, Agent Skills, exemplos e unit tests. A implementação atual continua local-first e sem dependências por padrão. Ela é adequada para avaliação, prototipagem e desenvolvimento de adaptadores; armazenamento de produção, busca vetorial, hosted services e a licença final ainda estão em preparação.
 
 ## Acompanhe
 
