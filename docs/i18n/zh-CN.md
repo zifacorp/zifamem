@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../../assets/zifamem-banner.png" alt="ZifaMem - AI 伙伴的情感长期记忆" width="100%">
+  <img src="https://github.com/zifacorp/zifamem/releases/download/readme-assets-v1/zifamem-banner.png" alt="ZifaMem - AI 伙伴的情感长期记忆" width="100%">
 </p>
 
 <p align="center">
