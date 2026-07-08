@@ -19,6 +19,8 @@
 <p align="center">
   <a href="#overview">概览</a>
   ·
+  <a href="#quick-install">快速安装</a>
+  ·
   <a href="#features">功能</a>
   ·
   <a href="#why-zifamem">为什么</a>
@@ -33,13 +35,13 @@
 </p>
 
 <p align="center">
-  <img alt="状态" src="https://img.shields.io/badge/status-coming%20soon-dc5f66">
+  <img alt="状态" src="https://img.shields.io/badge/status-alpha%20sdk-dc5f66">
   <img alt="重点" src="https://img.shields.io/badge/focus-emotional%20memory-111827">
   <img alt="面向对象" src="https://img.shields.io/badge/built%20for-growing%20agents-f6d365">
   <img alt="生命周期" src="https://img.shields.io/badge/lifecycle-reinforce%20%7C%20reflect%20%7C%20forget-8b5cf6">
 </p>
 
-> 源码、文档和示例正在准备中。开源版本即将发布。
+> ZifaMem 现在提供 alpha 版 Python SDK。当前版本聚焦无外部依赖的情感记忆生命周期、本地 JSON 存储、prompt 上下文组装和单元测试；生产数据库与向量检索集成仍在规划中。
 
 <a id="overview"></a>
 ## 概览
@@ -48,6 +50,23 @@ ZifaMem 是一个面向 AI 智能体、AI 伙伴以及关系型产品的情感�
 
 大多数记忆系统帮助智能体检索事实。ZifaMem 关注的是让智能体**成长**：随着关系变化，记忆可以被强化、削弱、合并、反思和遗忘。目标不是无限堆积聊天记录，而是构建一个活的记忆层，让 AI 伙伴随着时间变得更一致、更个人化，也更理解情感语境。
 
+<a id="quick-install"></a>
+## 快速安装
+
+```bash
+python -m pip install -e .
+python -m zifamem demo
+```
+
+开发测试命令：
+
+```bash
+python -m pip install -e ".[dev]"
+python -m pytest
+```
+
+默认引擎采用会话边界整合：当前轮次作为 L1，会话结束生成 L2 摘要，重要用户事实升级为 L3 情感长期记忆，并进一步更新 L4 用户画像。
+
 <a id="features"></a>
 ## 功能
 
@@ -55,8 +74,9 @@ ZifaMem 是一个面向 AI 智能体、AI 伙伴以及关系型产品的情感�
 - 面向长期用户-智能体连续性的关系时间线
 - 支持强化、衰减、合并、反思和遗忘的记忆生命周期策略
 - 同时结合语义相关性和关系语境的情感感知召回
-- 面向智能体的抽取、存储、检索、反思和回复生成接口
-- 计划支持用户可见的记忆查看、修正、删除和基于同意的个性化控制
+- 面向智能体的抽取、存储、检索、会话整合和 prompt 上下文组装接口
+- 面向开发、测试和小规模部署的内存存储与 JSON 存储
+- 已提供记忆删除、削弱和强化 API；用户可见的记忆 review UI 仍在规划中
 
 ## ZifaMem 适合谁？
 
@@ -180,18 +200,14 @@ ZifaMem 计划作为面向智能体的框架，支持抽取、存储、检索、
 <a id="planned-features"></a>
 ## 计划功能
 
-- 情感记忆 schema
-- 从对话抽取记忆
-- 情绪和关系信号标注
-- 长期存储抽象层
-- 关系时间线建模
-- 情感感知检索排序
-- 记忆整合和反思
+- 生产数据库和向量存储适配器
+- LLM 驱动的抽取与反思适配器
+- 关系时间线可视化
+- 更完整的情感感知检索排序
 - 强化有用记忆、修正过期记忆的智能体成长循环
-- 遗忘、衰减和强化策略
 - 用户可控的记忆可见性
 - 基于同意的记忆编辑和删除
-- 面向 AI 伙伴的 SDK 示例
+- 更多面向 AI 伙伴的 SDK 示例
 - 记忆连续性评估工具
 
 ## 常见问题
@@ -217,7 +233,7 @@ ZifaMem 计划作为面向智能体的框架，支持抽取、存储、检索、
 
 ZifaMem 处于早期开发阶段。
 
-这个公开仓库是项目方向的预览。实现、文档、示例、贡献指南和许可证将很快发布。
+这个公开仓库已经包含首版 Python SDK、示例和单元测试。当前实现优先本地运行和无外部依赖，适合评估、原型和适配器开发；生产存储、向量检索、托管服务和最终许可证仍在准备中。
 
 ## 关注项目
 
