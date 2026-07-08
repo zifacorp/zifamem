@@ -21,6 +21,8 @@
   ·
   <a href="#quick-install">Quick Install</a>
   ·
+  <a href="#implementation-status">Implementation Status</a>
+  ·
   <a href="#features">Features</a>
   ·
   <a href="#agent-skills">Agent Skills</a>
@@ -50,6 +52,35 @@
 ZifaMem is an emotional long-term memory framework for AI agents, companions, and relationship-centered products.
 
 Most memory systems help an agent retrieve facts. ZifaMem is designed to help an agent **grow**: memories can be reinforced, weakened, merged, reflected on, and forgotten as the relationship changes. The goal is not to accumulate an infinite transcript, but to build a living memory layer that lets an AI companion become more consistent, more personal, and more emotionally aware over time.
+
+The current alpha implements the foundation for that direction. The full growth loop is still being built.
+
+## Implementation Status
+
+Implemented in the alpha SDK:
+
+- [x] L1 session buffer through `record_turn`
+- [x] L2 session summaries through `end_session`
+- [x] L3 long-term memory records with category, importance, strength, evidence, and emotional signals
+- [x] L4 user profile updates from selected identity, preference, boundary, conflict, vulnerability, and meaningful-moment memories
+- [x] Dependency-free heuristic extraction from memory-eligible user turns
+- [x] Optional `LLMProvider` extraction with JSON validation, user-evidence filtering, and heuristic fallback
+- [x] Prompt-ready memory context assembly through `get_context`
+- [x] Local `InMemoryStore` and `JsonMemoryStore`
+- [x] Manual `remember`, `reinforce`, `weaken`, and `forget` APIs
+- [x] Recall ranking that combines lexical semantic overlap, memory strength, importance, recency decay, and emotional intensity
+- [x] Portable Agent Skills for integration and memory-safety review
+
+Still on the TODO list:
+
+- [ ] Automatic merging and updating of related memories beyond conservative duplicate handling
+- [ ] Reflection loops that periodically revise or consolidate memories
+- [ ] Relationship timeline visualization and richer relationship-state modeling
+- [ ] Production database, vector-store, and hosted-service adapters
+- [ ] User-visible memory review, correction, consent, and deletion UI
+- [ ] Richer retrieval that explicitly incorporates user state, relationship state, and conversational intent
+- [ ] Agent growth loop that learns from user feedback and corrects stale memories
+- [ ] Evaluation tools for long-horizon memory continuity
 
 ## Quick Install
 
@@ -144,9 +175,9 @@ For OpenClaw or other `SKILL.md`-compatible runtimes, copy the same folders into
 ## Features
 
 - Emotional memory modeling for mood, sentiment, intensity, trust, comfort, conflict, attachment, and boundaries
-- Relationship timeline design for long-running user-agent continuity
-- Memory lifecycle policies for reinforcement, decay, merging, reflection, and forgetting
-- Emotion-aware recall that balances semantic relevance with relationship context
+- Relationship-memory primitives for long-running user-agent continuity
+- Memory lifecycle APIs for reinforcement, decay-aware recall, and forgetting; merge and reflection loops are planned
+- Emotion-aware recall prototype that balances lexical semantic relevance, recency, importance, strength, and emotional intensity
 - Agent-native interfaces for extraction, storage, retrieval, session consolidation, and prompt context assembly
 - Optional LLMProvider interface and OpenAI-compatible extractor adapter
 - Portable Agent Skills for integration and memory-safety review
@@ -272,6 +303,7 @@ ZifaMem is planned as an agent-friendly framework for extraction, storage, retri
 ## Planned Features
 
 - Production database and vector-store adapters
+- Automatic memory merge, update, and reflection loops
 - More LLM-backed reflection and provider examples
 - Relationship timeline visualization
 - Richer emotion-aware retrieval ranking
