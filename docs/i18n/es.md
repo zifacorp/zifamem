@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/zifacorp/zifamem/main/assets/zifamem-banner.png" alt="ZifaMem - memoria emocional a largo plazo para compañeros de IA" width="100%">
+  <img src="../../assets/zifamem-banner.png" alt="ZifaMem - memoria emocional a largo plazo para compañeros de IA" width="100%">
 </p>
 
 <p align="center">
