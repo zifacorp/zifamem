@@ -1,0 +1,4 @@
+interface:
+  display_name: "ZifaMem Integrate"
+  short_description: "Add ZifaMem to agent apps"
+  default_prompt: "Use $zifamem-integrate to add emotional long-term memory to this agent project."

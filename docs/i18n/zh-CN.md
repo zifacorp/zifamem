@@ -23,6 +23,8 @@
   ·
   <a href="#features">功能</a>
   ·
+  <a href="#agent-skills">Agent Skills</a>
+  ·
   <a href="#why-zifamem">为什么</a>
   ·
   <a href="#how-it-evolves">演化机制</a>
@@ -86,6 +88,28 @@ memory = ZifaMemory(extractor=LLMMemoryExtractor(provider))
 
 `OpenAICompatibleProvider` 使用 Chat Completions JSON object 模式，也可以通过 `base_url` 指向本地或托管的兼容网关。LLM 抽取器会在写入长期记忆前校验类别、分数和用户事实证据；provider 失败时会回退到默认无依赖 heuristic 抽取器。
 
+<a id="agent-skills"></a>
+## Agent Skills
+
+本仓库也发布面向 coding agent 和 agent harness 的可迁移 Agent Skills：
+
+- `skills/zifamem-integrate`：把 ZifaMem 接入 AI 伙伴、聊天机器人、角色扮演智能体或 coding-agent harness。
+- `skills/zifamem-memory-audit`：审查记忆流程中的抽取安全、用户事实证据、LLM 输出校验和公开发布泄漏风险。
+
+这些 skill 使用可迁移的 `SKILL.md` 文件夹形态，可以复制到支持 Agent Skills 的工具中：
+
+```bash
+# Codex personal skills
+mkdir -p ~/.codex/skills
+cp -R skills/zifamem-* ~/.codex/skills/
+
+# Claude Code personal skills
+mkdir -p ~/.claude/skills
+cp -R skills/zifamem-* ~/.claude/skills/
+```
+
+对于 OpenClaw 或其他兼容 `SKILL.md` 的运行时，请把同样的文件夹复制到对应工具配置的 skills 目录。这里的 skills 是公开安全的流程指导；真正的持久化记忆仍需要在应用运行时接入 ZifaMem SDK。
+
 <a id="features"></a>
 ## 功能
 
@@ -95,6 +119,7 @@ memory = ZifaMemory(extractor=LLMMemoryExtractor(provider))
 - 同时结合语义相关性和关系语境的情感感知召回
 - 面向智能体的抽取、存储、检索、会话整合和 prompt 上下文组装接口
 - 可选 LLMProvider 接口和 OpenAI-compatible 抽取适配器
+- 面向集成和记忆安全审查的可迁移 Agent Skills
 - 面向开发、测试和小规模部署的内存存储与 JSON 存储
 - 已提供记忆删除、削弱和强化 API；用户可见的记忆 review UI 仍在规划中
 
