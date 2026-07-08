@@ -1,0 +1,4 @@
+interface:
+  display_name: "ZifaMem Memory Audit"
+  short_description: "Review memory extraction safety"
+  default_prompt: "Use $zifamem-memory-audit to review this memory flow for safety and evidence issues."

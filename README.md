@@ -23,6 +23,8 @@
   ·
   <a href="#features">Features</a>
   ·
+  <a href="#agent-skills">Agent Skills</a>
+  ·
   <a href="#why-zifamem">Why</a>
   ·
   <a href="#how-it-evolves">Evolution</a>
@@ -118,6 +120,27 @@ memory = ZifaMemory(extractor=LLMMemoryExtractor(provider))
 
 `OpenAICompatibleProvider` uses the Chat Completions JSON-object pattern and can also point at compatible local or hosted gateways via `base_url`. The LLM extractor validates categories, scores, and user-fact evidence before writing long-term memories, and falls back to the dependency-free heuristic extractor when the provider fails.
 
+## Agent Skills
+
+This repository also publishes portable Agent Skills for coding agents and agent harnesses:
+
+- `skills/zifamem-integrate`: add ZifaMem to an AI companion, chatbot, roleplay agent, or coding-agent harness.
+- `skills/zifamem-memory-audit`: review a memory flow for extraction safety, user-fact evidence, LLM output validation, and public-release leakage.
+
+The skills use the portable `SKILL.md` folder pattern. They can be copied into tools that support Agent Skills, for example:
+
+```bash
+# Codex personal skills
+mkdir -p ~/.codex/skills
+cp -R skills/zifamem-* ~/.codex/skills/
+
+# Claude Code personal skills
+mkdir -p ~/.claude/skills
+cp -R skills/zifamem-* ~/.claude/skills/
+```
+
+For OpenClaw or other `SKILL.md`-compatible runtimes, copy the same folders into that tool's configured skills directory. The skills are public-safe procedural guidance; persistent memory still requires integrating the ZifaMem SDK in your application runtime.
+
 ## Features
 
 - Emotional memory modeling for mood, sentiment, intensity, trust, comfort, conflict, attachment, and boundaries
@@ -126,6 +149,7 @@ memory = ZifaMemory(extractor=LLMMemoryExtractor(provider))
 - Emotion-aware recall that balances semantic relevance with relationship context
 - Agent-native interfaces for extraction, storage, retrieval, session consolidation, and prompt context assembly
 - Optional LLMProvider interface and OpenAI-compatible extractor adapter
+- Portable Agent Skills for integration and memory-safety review
 - Local in-memory and JSON stores for development, tests, and small deployments
 - User memory deletion and weakening/reinforcement APIs; user-visible review UI is planned
 
