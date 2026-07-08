@@ -60,17 +60,17 @@ ZifaMem 是一个面向 AI 智能体、AI 伙伴以及关系型产品的情感�
 
 alpha SDK 已实现：
 
-- [x] 通过 `record_turn` 记录 L1 会话缓冲
-- [x] 通过 `end_session` 生成 L2 会话摘要
-- [x] 带类别、重要性、强度、证据和情感信号的 L3 长期记忆记录
-- [x] 从身份、偏好、边界、冲突、脆弱性和重要经历类记忆更新 L4 用户画像
-- [x] 默认无依赖 heuristic 抽取，只从 memory-eligible 用户轮次提取
-- [x] 可选 `LLMProvider` 抽取，包含 JSON 校验、用户证据过滤和 heuristic fallback
-- [x] 通过 `get_context` 组装 prompt-ready 记忆上下文
-- [x] 本地 `InMemoryStore` 和 `JsonMemoryStore`
-- [x] 手动 `remember`、`reinforce`、`weaken`、`forget` API
-- [x] 结合词面语义重叠、记忆强度、重要性、时间衰减和情感强度的召回排序
-- [x] 面向集成和记忆安全审查的可迁移 Agent Skills
+- ✅ 通过 `record_turn` 记录 L1 会话缓冲
+- ✅ 通过 `end_session` 生成 L2 会话摘要
+- ✅ 带类别、重要性、强度、证据和情感信号的 L3 长期记忆记录
+- ✅ 从身份、偏好、边界、冲突、脆弱性和重要经历类记忆更新 L4 用户画像
+- ✅ 默认无依赖 heuristic 抽取，只从 memory-eligible 用户轮次提取
+- ✅ 可选 `LLMProvider` 抽取，包含 JSON 校验、用户证据过滤和 heuristic fallback
+- ✅ 通过 `get_context` 组装 prompt-ready 记忆上下文
+- ✅ 本地 `InMemoryStore` 和 `JsonMemoryStore`
+- ✅ 手动 `remember`、`reinforce`、`weaken`、`forget` API
+- ✅ 结合词面语义重叠、记忆强度、重要性、时间衰减和情感强度的召回排序
+- ✅ 面向集成和记忆安全审查的可迁移 Agent Skills
 
 TODO：
 
