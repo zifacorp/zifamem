@@ -41,7 +41,7 @@
   <img alt="生命周期" src="https://img.shields.io/badge/lifecycle-reinforce%20%7C%20reflect%20%7C%20forget-8b5cf6">
 </p>
 
-> ZifaMem 现在提供 alpha 版 Python SDK。当前版本聚焦无外部依赖的情感记忆生命周期、本地 JSON 存储、prompt 上下文组装和单元测试；生产数据库与向量检索集成仍在规划中。
+> ZifaMem 现在提供 alpha 版 Python SDK。当前版本聚焦默认无外部依赖的情感记忆生命周期、可选 LLMProvider 抽取、本地 JSON 存储、prompt 上下文组装和单元测试；生产数据库与向量检索集成仍在规划中。
 
 <a id="overview"></a>
 ## 概览
@@ -67,6 +67,25 @@ python -m pytest
 
 默认引擎采用会话边界整合：当前轮次作为 L1，会话结束生成 L2 摘要，重要用户事实升级为 L3 情感长期记忆，并进一步更新 L4 用户画像。
 
+### 可选 LLM 抽取
+
+ZifaMem 默认不需要 LLM。如果希望用模型生成会话摘要和长期记忆候选，可以注入 provider：
+
+```python
+import os
+
+from zifamem import LLMMemoryExtractor, OpenAICompatibleProvider, ZifaMemory
+
+provider = OpenAICompatibleProvider(
+    api_key=os.environ["OPENAI_API_KEY"],
+    model="gpt-4.1-mini",
+)
+
+memory = ZifaMemory(extractor=LLMMemoryExtractor(provider))
+```
+
+`OpenAICompatibleProvider` 使用 Chat Completions JSON object 模式，也可以通过 `base_url` 指向本地或托管的兼容网关。LLM 抽取器会在写入长期记忆前校验类别、分数和用户事实证据；provider 失败时会回退到默认无依赖 heuristic 抽取器。
+
 <a id="features"></a>
 ## 功能
 
@@ -75,6 +94,7 @@ python -m pytest
 - 支持强化、衰减、合并、反思和遗忘的记忆生命周期策略
 - 同时结合语义相关性和关系语境的情感感知召回
 - 面向智能体的抽取、存储、检索、会话整合和 prompt 上下文组装接口
+- 可选 LLMProvider 接口和 OpenAI-compatible 抽取适配器
 - 面向开发、测试和小规模部署的内存存储与 JSON 存储
 - 已提供记忆删除、削弱和强化 API；用户可见的记忆 review UI 仍在规划中
 
@@ -201,7 +221,7 @@ ZifaMem 计划作为面向智能体的框架，支持抽取、存储、检索、
 ## 计划功能
 
 - 生产数据库和向量存储适配器
-- LLM 驱动的抽取与反思适配器
+- 更多 LLM 反思与 provider 示例
 - 关系时间线可视化
 - 更完整的情感感知检索排序
 - 强化有用记忆、修正过期记忆的智能体成长循环
@@ -233,7 +253,7 @@ ZifaMem 计划作为面向智能体的框架，支持抽取、存储、检索、
 
 ZifaMem 处于早期开发阶段。
 
-这个公开仓库已经包含首版 Python SDK、示例和单元测试。当前实现优先本地运行和无外部依赖，适合评估、原型和适配器开发；生产存储、向量检索、托管服务和最终许可证仍在准备中。
+这个公开仓库已经包含首版 Python SDK、可选 LLM 抽取适配器、示例和单元测试。当前实现默认仍优先本地运行且无外部依赖，适合评估、原型和适配器开发；生产存储、向量检索、托管服务和最终许可证仍在准备中。
 
 ## 关注项目
 

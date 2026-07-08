@@ -3,6 +3,8 @@
 from zifamem.context import MemoryContext
 from zifamem.engine import ZifaMemory
 from zifamem.extractors import HeuristicMemoryExtractor, MemoryExtractor
+from zifamem.llm import LLMProvider, LLMProviderError, OpenAICompatibleProvider
+from zifamem.llm_extractors import LLMMemoryExtractor
 from zifamem.schemas import (
     ConversationTurn,
     EmotionSignal,
@@ -20,10 +22,14 @@ __all__ = [
     "HeuristicMemoryExtractor",
     "InMemoryStore",
     "JsonMemoryStore",
+    "LLMMemoryExtractor",
+    "LLMProvider",
+    "LLMProviderError",
     "MemoryCategory",
     "MemoryContext",
     "MemoryExtractor",
     "MemoryRecord",
+    "OpenAICompatibleProvider",
     "SessionSummary",
     "UserProfile",
     "ZifaMemory",
