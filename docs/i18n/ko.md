@@ -12,11 +12,37 @@
   <a href="pt.md">Português</a>
 </p>
 
+<h1 align="center">ZifaMem: Structured Memory for Persona, Preference, and Emotional Continuity in AI Companions</h1>
+
+<p align="center">
+  <a href="https://arxiv.org/pdf/2607.17564"><img alt="논문 PDF" src="https://img.shields.io/badge/Paper-PDF-red?style=plastic&logo=adobeacrobatreader&logoColor=red"></a>
+  <a href="https://arxiv.org/abs/2607.17564"><img alt="arXiv 2607.17564" src="https://img.shields.io/badge/arXiv-2607.17564-b31b1b.svg"></a>
+  <img alt="상태" src="https://img.shields.io/badge/status-alpha%20sdk-dc5f66">
+  <img alt="Python" src="https://img.shields.io/badge/python-%3E%3D3.10-3776ab?logo=python&logoColor=white">
+</p>
+
+<p align="center">
+  <strong>Jingzhe Fang</strong>,
+  <strong>Guozhi Xu</strong>,
+  <strong>Yunfan Cui</strong>,
+  <strong>Xiaochen Yang</strong>, and
+  <strong>Zhangyu Hua</strong>
+</p>
+
+<p align="center">
+  <a href="https://arxiv.org/pdf/2607.17564">논문</a> |
+  <a href="https://arxiv.org/abs/2607.17564">arXiv</a> |
+  <a href="#quick-install">SDK</a> |
+  <a href="#citation">인용</a>
+</p>
+
 <p align="center">
   <strong>AI 컴패니언이 시간이 지날수록 성장하고 적응하며 중요한 것을 기억하도록 돕는 감정 장기 기억.</strong>
 </p>
 
 <p align="center">
+  <a href="#paper">논문</a>
+  ·
   <a href="#overview">개요</a>
   ·
   <a href="#quick-install">빠른 설치</a>
@@ -36,16 +62,31 @@
   <a href="#planned-features">로드맵</a>
   ·
   <a href="#project-status">상태</a>
+  ·
+  <a href="#citation">인용</a>
 </p>
 
 <p align="center">
-  <img alt="Status" src="https://img.shields.io/badge/status-alpha%20sdk-dc5f66">
   <img alt="Focus" src="https://img.shields.io/badge/focus-emotional%20memory-111827">
   <img alt="Built for" src="https://img.shields.io/badge/built%20for-growing%20agents-f6d365">
   <img alt="Lifecycle" src="https://img.shields.io/badge/lifecycle-reinforce%20%7C%20reflect%20%7C%20forget-8b5cf6">
 </p>
 
 > ZifaMem은 이제 alpha Python SDK로 사용할 수 있습니다. 현재 릴리스는 기본적으로 외부 의존성이 없는 기억 생애주기, 선택적 LLMProvider 추출, 로컬 JSON 저장소, prompt 컨텍스트 조립, 테스트에 초점을 둡니다. 프로덕션 데이터베이스와 벡터 통합은 계획 중입니다.
+
+<a id="paper"></a>
+## 논문
+
+이 저장소는 논문 **[ZifaMem: Structured Memory for Persona, Preference, and Emotional Continuity in AI Companions](https://arxiv.org/abs/2607.17564)** 에 수반되는 공개 alpha SDK를 제공합니다.
+
+이 논문은 AI 컴패니언이 페르소나, 사용자 선호, 감정적 이력을 유지해야 할 때 동일한 기반 모델에 전체 원시 대화 이력을 제공하는 것보다 구조화 기억이 더 효과적인지를 실제 배포 관점에서 묻습니다. 검증된 4개 모델 백본, 4가지 컴패니언 역량, 기존 기억 시스템, 여러 감정 컨텍스트 조건을 평가했습니다.
+
+주요 결과:
+
+- 구조화 기억은 전체 원시 대화 이력 대비 4개 백본의 통합 감정 지능 점수를 **11.4%** 향상했습니다(95% CI: 6.3%~17.1%).
+- 페르소나 그라운딩은 검증된 4개 백본 모두에서 방향성 있는 향상을 보였으며, **Claude에서는 상대적으로 42% 향상**되었습니다.
+- 사전 등록된 동일 프로토콜 비교에서 테스트한 세 기억 시스템 모두 원시 이력 배포보다 우수했습니다. 주요 선호도 엔드포인트에서 ZifaMem과 Mem0는 ±5%포인트 이내로 통계적으로 동등했으며, 감정 지능 차이는 현재 표본 크기에서 아직 확정되지 않았습니다.
+- 탐색적 비교에서는 다중 턴 감정 컨텍스트가 단일 턴 스냅샷보다 우수했지만, 구조화 기억이 있는 경우 추가 감정 상태 머신은 측정 가능한 이득을 제공하지 않았습니다.
 
 <a id="overview"></a>
 ## 개요
@@ -321,6 +362,25 @@ ZifaMem은 alpha 단계입니다.
 오픈소스 릴리스를 따라가려면 이 저장소를 Watch 하세요.
 
 조직 업데이트는 [Zifa AI](https://github.com/zifacorp)를 방문하세요.
+
+<a id="citation"></a>
+## 인용
+
+ZifaMem 또는 관련 연구가 유용했다면 다음을 인용해 주세요:
+
+```bibtex
+@misc{fang2026zifamem,
+  title         = {ZifaMem: Structured Memory for Persona, Preference, and
+                   Emotional Continuity in AI Companions},
+  author        = {Fang, Jingzhe and Xu, Guozhi and Cui, Yunfan and
+                   Yang, Xiaochen and Hua, Zhangyu},
+  year          = {2026},
+  eprint        = {2607.17564},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.AI},
+  url           = {https://arxiv.org/abs/2607.17564}
+}
+```
 
 ## 라이선스
 

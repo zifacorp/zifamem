@@ -12,11 +12,37 @@
   <a href="pt.md">Português</a>
 </p>
 
+<h1 align="center">ZifaMem: Structured Memory for Persona, Preference, and Emotional Continuity in AI Companions</h1>
+
+<p align="center">
+  <a href="https://arxiv.org/pdf/2607.17564"><img alt="论文 PDF" src="https://img.shields.io/badge/Paper-PDF-red?style=plastic&logo=adobeacrobatreader&logoColor=red"></a>
+  <a href="https://arxiv.org/abs/2607.17564"><img alt="arXiv 2607.17564" src="https://img.shields.io/badge/arXiv-2607.17564-b31b1b.svg"></a>
+  <img alt="状态" src="https://img.shields.io/badge/status-alpha%20sdk-dc5f66">
+  <img alt="Python" src="https://img.shields.io/badge/python-%3E%3D3.10-3776ab?logo=python&logoColor=white">
+</p>
+
+<p align="center">
+  <strong>Jingzhe Fang</strong>,
+  <strong>Guozhi Xu</strong>,
+  <strong>Yunfan Cui</strong>,
+  <strong>Xiaochen Yang</strong>，以及
+  <strong>Zhangyu Hua</strong>
+</p>
+
+<p align="center">
+  <a href="https://arxiv.org/pdf/2607.17564">论文</a> |
+  <a href="https://arxiv.org/abs/2607.17564">arXiv</a> |
+  <a href="#quick-install">SDK</a> |
+  <a href="#citation">引用</a>
+</p>
+
 <p align="center">
   <strong>帮助 AI 伙伴成长、适应，并长期记住真正重要之事的情感长期记忆。</strong>
 </p>
 
 <p align="center">
+  <a href="#paper">论文</a>
+  ·
   <a href="#overview">概览</a>
   ·
   <a href="#quick-install">快速安装</a>
@@ -36,16 +62,31 @@
   <a href="#planned-features">路线图</a>
   ·
   <a href="#project-status">状态</a>
+  ·
+  <a href="#citation">引用</a>
 </p>
 
 <p align="center">
-  <img alt="状态" src="https://img.shields.io/badge/status-alpha%20sdk-dc5f66">
   <img alt="重点" src="https://img.shields.io/badge/focus-emotional%20memory-111827">
   <img alt="面向对象" src="https://img.shields.io/badge/built%20for-growing%20agents-f6d365">
   <img alt="生命周期" src="https://img.shields.io/badge/lifecycle-reinforce%20%7C%20reflect%20%7C%20forget-8b5cf6">
 </p>
 
 > ZifaMem 现在提供 alpha 版 Python SDK。当前版本聚焦默认无外部依赖的情感记忆生命周期、可选 LLMProvider 抽取、本地 JSON 存储、prompt 上下文组装和单元测试；生产数据库与向量检索集成仍在规划中。
+
+<a id="paper"></a>
+## 论文
+
+本仓库提供论文 **[ZifaMem: Structured Memory for Persona, Preference, and Emotional Continuity in AI Companions](https://arxiv.org/abs/2607.17564)** 所配套的公开 alpha SDK。
+
+论文研究了一个面向实际部署的问题：当 AI 伙伴需要保持角色设定、用户偏好和情感历史时，结构化记忆是否比直接向同一基础模型提供完整原始对话历史更有效？我们在四个经验证的模型骨干、四类 AI 伙伴能力、既有记忆系统和多种情感上下文方案上进行了评测。
+
+主要发现包括：
+
+- 与完整原始对话历史相比，结构化记忆将四个模型骨干的汇总情绪智能评分提高了 **11.4%**（95% CI：6.3% 至 17.1%）。
+- 四个经验证的模型骨干在角色设定保持能力上均有方向性提升，其中 **Claude 的相对提升为 42%**。
+- 在预注册的同协议对比中，三个受测记忆系统均优于原始历史部署。ZifaMem 与 Mem0 在主要偏好端点上的统计等效范围为 ±5 个百分点；在当前样本量下，两者的情绪智能差异仍无法确定。
+- 在探索性对比中，多轮情感上下文优于单轮快照；而在已有结构化记忆时，额外的情绪状态机没有带来可测量的增益。
 
 <a id="overview"></a>
 ## 概览
@@ -317,6 +358,25 @@ ZifaMem 处于早期开发阶段。
 Watch 本仓库以跟进开源发布。
 
 组织动态请访问 [Zifa AI](https://github.com/zifacorp)。
+
+<a id="citation"></a>
+## 引用
+
+如果 ZifaMem 或相关研究对你有帮助，请引用：
+
+```bibtex
+@misc{fang2026zifamem,
+  title         = {ZifaMem: Structured Memory for Persona, Preference, and
+                   Emotional Continuity in AI Companions},
+  author        = {Fang, Jingzhe and Xu, Guozhi and Cui, Yunfan and
+                   Yang, Xiaochen and Hua, Zhangyu},
+  year          = {2026},
+  eprint        = {2607.17564},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.AI},
+  url           = {https://arxiv.org/abs/2607.17564}
+}
+```
 
 ## 许可证
 
