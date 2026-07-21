@@ -12,11 +12,37 @@
   <a href="docs/i18n/pt.md">Português</a>
 </p>
 
+<h1 align="center">ZifaMem: Structured Memory for Persona, Preference, and Emotional Continuity in AI Companions</h1>
+
+<p align="center">
+  <a href="https://arxiv.org/pdf/2607.17564"><img alt="Paper PDF" src="https://img.shields.io/badge/Paper-PDF-red?style=plastic&logo=adobeacrobatreader&logoColor=red"></a>
+  <a href="https://arxiv.org/abs/2607.17564"><img alt="arXiv 2607.17564" src="https://img.shields.io/badge/arXiv-2607.17564-b31b1b.svg"></a>
+  <img alt="Status" src="https://img.shields.io/badge/status-alpha%20sdk-dc5f66">
+  <img alt="Python" src="https://img.shields.io/badge/python-%3E%3D3.10-3776ab?logo=python&logoColor=white">
+</p>
+
+<p align="center">
+  <strong>Jingzhe Fang</strong>,
+  <strong>Guozhi Xu</strong>,
+  <strong>Yunfan Cui</strong>,
+  <strong>Xiaochen Yang</strong>, and
+  <strong>Zhangyu Hua</strong>
+</p>
+
+<p align="center">
+  <a href="https://arxiv.org/pdf/2607.17564">Paper</a> |
+  <a href="https://arxiv.org/abs/2607.17564">arXiv</a> |
+  <a href="#quick-install">SDK</a> |
+  <a href="#citation">Citation</a>
+</p>
+
 <p align="center">
   <strong>Emotional long-term memory that helps AI companions grow, adapt, and remember what matters over time.</strong>
 </p>
 
 <p align="center">
+  <a href="#paper">Paper</a>
+  ·
   <a href="#overview">Overview</a>
   ·
   <a href="#quick-install">Quick Install</a>
@@ -36,16 +62,31 @@
   <a href="#planned-features">Roadmap</a>
   ·
   <a href="#project-status">Status</a>
+  ·
+  <a href="#citation">Citation</a>
 </p>
 
 <p align="center">
-  <img alt="Status" src="https://img.shields.io/badge/status-alpha%20sdk-dc5f66">
   <img alt="Focus" src="https://img.shields.io/badge/focus-emotional%20memory-111827">
   <img alt="Built for" src="https://img.shields.io/badge/built%20for-growing%20agents-f6d365">
   <img alt="Lifecycle" src="https://img.shields.io/badge/lifecycle-reinforce%20%7C%20reflect%20%7C%20forget-8b5cf6">
 </p>
 
 > ZifaMem is now available as an alpha Python SDK. The current release focuses on a dependency-free default memory lifecycle, optional LLMProvider extraction, local JSON storage, prompt context assembly, and tests. Production database and vector integrations are planned.
+
+## Paper
+
+This repository contains the public alpha SDK accompanying our paper, **[ZifaMem: Structured Memory for Persona, Preference, and Emotional Continuity in AI Companions](https://arxiv.org/abs/2607.17564)**.
+
+The paper asks a deployment-facing question: when an AI companion must preserve persona, preferences, and emotional history, does structured memory help more than giving the same backbone the full raw dialogue history? We evaluate that question across four verified model backbones, four companion capabilities, prior memory systems, and affect-context variants.
+
+Key findings include:
+
+- Structured memory improves pooled four-backbone emotional-intelligence scores by **11.4%** (95% CI: 6.3% to 17.1%) over full raw dialogue history.
+- Persona grounding improves directionally on all four verified backbones, including a **42% relative gain on Claude**.
+- Under the preregistered same-protocol comparison, all three tested memory systems outperform raw-history deployment. ZifaMem and Mem0 are statistically equivalent within ±5 percentage points on the primary preference endpoint; their emotional-intelligence difference remains unresolved at the current sample size.
+- Multi-turn affect context outperforms a single-turn snapshot in the exploratory contrast, while an additional emotion state machine shows no measurable gain once structured memory is present.
+
 
 ## Overview
 
@@ -342,6 +383,24 @@ The repository now includes the first Python SDK implementation, optional LLM ex
 Watch this repository to follow the open source release.
 
 For organization updates, visit [Zifa AI](https://github.com/zifacorp).
+
+## Citation
+
+If you find ZifaMem or the accompanying research useful, please cite:
+
+```bibtex
+@misc{fang2026zifamem,
+  title         = {ZifaMem: Structured Memory for Persona, Preference, and
+                   Emotional Continuity in AI Companions},
+  author        = {Fang, Jingzhe and Xu, Guozhi and Cui, Yunfan and
+                   Yang, Xiaochen and Hua, Zhangyu},
+  year          = {2026},
+  eprint        = {2607.17564},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.AI},
+  url           = {https://arxiv.org/abs/2607.17564}
+}
+```
 
 ## License
 
